@@ -1,0 +1,25 @@
+{
+  "name": "demo-backend",
+  "version": "1.0.0",
+  "description": "Backend of demo node project",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --recursive --exit",
+    "sequelize": "sequelize"
+  },
+  "author": "Ruan Costa",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "express": "^4.16.3",
+    "mocha": "^5.1.1",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.7",
+    "sequelize-cli": "^4.0.0",
+    "supertest": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
+}
