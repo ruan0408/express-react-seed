@@ -1,16 +1,17 @@
 {
-  "name": "demo-backend",
+  "name": "express-react-seed",
   "version": "1.0.0",
-  "description": "Backend of demo node project",
+  "description": "Backend of express-react seed",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
+    "build": "sequelize db:migrate && sequelize db:seed && node index.js",
     "test": "NODE_ENV=test mocha --recursive --exit",
     "sequelize": "sequelize"
   },
   "author": "Ruan Costa",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "express": "^4.16.3",
     "mocha": "^5.1.1",

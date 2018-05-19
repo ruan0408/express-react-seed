@@ -1,21 +1,82 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
-class App extends Component {
+const TODOS_URL = 'http://localhost:3000/todos';
+
+export default class App extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      currentTodo: '',
+      todos: [],
+    };
+  }
+
+  async componentDidMount() {
+    const todos = await axios.get(TODOS_URL).then(res => res.data);
+    this.setState({ todos });
+  }
+
+  clearCurrentTodo() {
+    this.setState({ currentTodo: '' });
+  }
+
+  addTodo(newTodo) {
+    this.setState(
+      { todos: [...this.state.todos, newTodo] },
+      () => this.clearCurrentTodo(),
+    );
+  }
+
+  deleteTodo(id) {
+    const index = this.state.todos.findIndex(t => t.id === id);
+    this.setState({ todos: [
+        ...this.state.todos.slice(0, index),
+        ...this.state.todos.slice(index + 1),
+      ]
+    });
+  }
+
+  async handleSave() {
+    let todo = { description: this.state.currentTodo };
+    todo = await axios.post(TODOS_URL, todo).then(res => res.data);
+    this.addTodo(todo);
+  }
+
+  async handleDelete(id) {
+    await axios.delete(`${TODOS_URL}/${id}`);
+    this.deleteTodo(id);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <div>
+          <input
+            value={this.state.currentTodo}
+            onChange={e => this.setState({ currentTodo: e.target.value })}
+          />
+          <button
+            disabled={this.state.currentTodo === ''}
+            onClick={() => this.handleSave()}
+          >
+            Salvar
+          </button>
+        </div>
+        {this.state.todos.map(t =>
+          <div key={t.id}>
+            {t.description}
+            <button
+              onClick={() => this.handleDelete(t.id)}
+            >
+              Deletar
+            </button>
+          </div>
+        )}
       </div>
     );
   }
 }
-
-export default App;

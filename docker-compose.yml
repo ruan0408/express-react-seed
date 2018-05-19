@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  database:
+    container_name: todo_database
+    image: mysql:5.7
+    volumes:
+      - ./data/mysql/:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo_dev
+
+  todo-backend:
+    container_name: todo_backend
+    build: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - 5000:3000
+    depends_on:
+      - database

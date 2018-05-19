@@ -1,12 +1,12 @@
 const config = require('./config');
 
 module.exports = {
-  username: config.username,
-  password: config.password,
-  database: config.database,
-  host: config.host,
-  port: config.port,
+  username: config.dbUser,
+  password: config.dbPassword,
+  database: config.dbName,
+  host: config.dbHost,
+  port: config.dbPort,
+  logging: config.dbLogging,
   dialect: "mysql",
   operatorsAliases: false,
-  logging: false,
 };

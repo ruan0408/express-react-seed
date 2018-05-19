@@ -1,1 +1,1 @@
-# node-demo
+# Seed for Express/React projects
