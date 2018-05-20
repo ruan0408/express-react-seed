@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const TODOS_URL = 'http://localhost:3000/todos';
+const API_URL = process.env.REACT_APP_API_URL;
+const TODOS_URL = `${API_URL}/todos`;
 
 export default class App extends Component {
 
