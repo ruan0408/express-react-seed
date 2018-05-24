@@ -2,28 +2,28 @@ version: '2.1'
 
 services:
   seed-frontend:
-    container_name: seed-frontend-dev
-    build: ./frontend
-    image: seed-frontend-dev
-    volumes:
-      - ./frontend:/usr/src/app
+    container_name: seed-frontend-prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile-prod
+    image: seed-frontend-prod
     ports:
-      - 4200:4200
+      - 8080:80
     depends_on:
       - seed-backend
 
   seed-backend:
-    container_name: seed-backend-dev
-    build: ./backend
-    image: seed-backend-dev
-    volumes:
-      - ./backend:/usr/src/app
+    container_name: seed-backend-prod
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-prod
+    image: seed-backend-prod
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       PORT: 3000
       DB_USER: root
       DB_PASSWORD: root
-      DB_NAME: demo-dev
+      DB_NAME: demo-prod
       DB_HOST: database
       DB_PORT: 3306
     ports:
@@ -33,13 +33,13 @@ services:
         condition: service_healthy
 
   database:
-    container_name: seed-db-dev
+    container_name: seed-db-prod
     image: mysql:5.7
     volumes:
       - ./data/mysql/:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo-dev
+      MYSQL_DATABASE: demo-prod
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s

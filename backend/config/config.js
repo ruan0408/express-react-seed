@@ -6,7 +6,7 @@ const {
   DB_HOST,
   DB_PORT,
   DB_LOGGING,
-  APP_PORT,
+  PORT,
 } = process.env;
 
 const env = {
@@ -17,7 +17,7 @@ const env = {
     dbHost: "localhost",
     dbPort: 3306,
     dbLogging: false,
-    appPort: 3000,
+    port: 3000,
   },
   test: {
     dbUser: "root",
@@ -26,7 +26,7 @@ const env = {
     dbHost: "localhost",
     dbPort: 3306,
     dbLogging: false,
-    appPort: 3000,
+    port: 3000,
   },
   production: {
     dbUser: "root",
@@ -35,7 +35,7 @@ const env = {
     dbHost: "localhost",
     dbPort: 3306,
     dbLogging: false,
-    appPort: 3000,
+    port: 3000,
   },
 }[NODE_ENV || 'development'];
 
@@ -46,5 +46,5 @@ module.exports = {
   dbHost: DB_HOST || env.dbHost,
   dbPort: DB_PORT || env.dbPort,
   dbLogging: DB_LOGGING || env.dbLogging,
-  appPort: APP_PORT || env.appPort,
+  port: PORT || env.port,
 };
